@@ -179,7 +179,7 @@ const Offers = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] mt-6 mb-8 max-w-4xl text-center"
+                        className="text-4xl sm:text-5xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] mt-6 mb-8 max-w-4xl text-center"
                     >
                         Ofertas e <br className="hidden md:block" />
                         <span className="text-white">Benefícios</span>
@@ -271,7 +271,7 @@ const Offers = () => {
             {/* 3. Grade de Ofertas */}
             <section id="offers-grid" className="w-full max-w-7xl mx-auto px-4 md:px-8 xl:px-12 relative z-20">
                 {filteredOffers.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-6">
                         {filteredOffers.map((offer, index) => (
                             <motion.div
                                 key={offer.id}
@@ -282,38 +282,38 @@ const Offers = () => {
                                 className="group relative flex flex-col bg-[#0a0a0c] rounded-none border-[2px] transition-all duration-300 cursor-pointer overflow-hidden border-white/10 hover:border-primary-500/50 hover:shadow-[0_0_30px_rgba(139,92,246,0.1)]"
                             >
                                 {/* Imagem Area (Product Image style) */}
-                                <div className="w-full h-48 relative overflow-hidden bg-[#111]">
+                                <div className="w-full h-32 sm:h-48 relative overflow-hidden bg-[#111]">
                                     {offer.image ? (
                                         <img src={offer.image} alt={offer.name} className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center font-black text-white/20 text-4xl">
+                                        <div className="w-full h-full flex items-center justify-center font-black text-white/20 text-3xl sm:text-4xl">
                                             {offer.partnerLogo}
                                         </div>
                                     )}
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c] via-transparent to-transparent opacity-80" />
                                     
-                                    <div className="absolute top-3 left-3 z-10">
-                                         <div className={`px-2 py-1 rounded-none text-[10px] font-bold uppercase tracking-wider border backdrop-blur-md ${getCategoryColor(offer.category)}`}>
+                                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
+                                         <div className={`px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-none text-[8px] sm:text-[10px] font-bold uppercase tracking-wider border backdrop-blur-md ${getCategoryColor(offer.category)}`}>
                                             {offer.category}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Detalhes do Produto */}
-                                <div className="p-5 flex-grow flex flex-col">
-                                    <span className="text-[10px] text-gray-500 font-bold mb-1.5 uppercase tracking-wider">{offer.partnerName}</span>
-                                    <h3 className="text-base sm:text-lg font-bold text-white leading-tight mb-2 group-hover:text-primary-400 transition-colors line-clamp-2">
+                                <div className="p-3 sm:p-5 flex-grow flex flex-col">
+                                    <span className="text-[9px] sm:text-[10px] text-gray-500 font-bold mb-1 sm:mb-1.5 uppercase tracking-wider truncate">{offer.partnerName}</span>
+                                    <h3 className="text-sm sm:text-lg font-bold text-white leading-tight mb-1 sm:mb-2 group-hover:text-primary-400 transition-colors line-clamp-2">
                                         {offer.name}
                                     </h3>
                                     
-                                    <p className="text-sm text-gray-400 line-clamp-2 mb-5">
+                                    <p className="hidden sm:-webkit-box sm:line-clamp-2 text-sm text-gray-400 mb-5">
                                         {offer.shortDescription}
                                     </p>
 
                                     {/* Botão de Ação */}
-                                    <div className="mt-auto">
-                                        <button className="w-full py-3 rounded-none font-bold text-sm flex items-center justify-center gap-2 bg-white/5 text-white border border-white/10 hover:bg-primary-600 hover:border-primary-500 transition-all duration-300">
-                                            <ShoppingBag size={16} />
+                                    <div className="mt-auto pt-2 sm:pt-0">
+                                        <button className="w-full py-2 sm:py-3 rounded-none font-bold text-[11px] sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 bg-white/5 text-white border border-white/10 hover:bg-primary-600 hover:border-primary-500 transition-all duration-300">
+                                            <ShoppingBag size={14} className="sm:w-4 sm:h-4" />
                                             <span>Ver Oferta</span>
                                         </button>
                                     </div>

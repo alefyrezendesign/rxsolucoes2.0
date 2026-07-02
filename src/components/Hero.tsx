@@ -75,7 +75,7 @@ const Hero = () => {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] max-w-4xl text-center"
+                                className="text-4xl sm:text-5xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] max-w-4xl text-center"
                             >
                                 {words.map((word, i) => (
                                     <span key={i}>

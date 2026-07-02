@@ -147,7 +147,7 @@ const Partners = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] mt-6 mb-8 max-w-4xl text-center"
+                        className="text-4xl sm:text-5xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] mt-6 mb-8 max-w-4xl text-center"
                     >
                         Parceiros que ampliam <br className="hidden md:block" />
                         <span className="text-white">possibilidades</span>
@@ -173,20 +173,31 @@ const Partners = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex flex-nowrap overflow-x-auto md:overflow-visible justify-start md:justify-center mb-8 pb-4 md:pb-0 scrollbar-hide snap-x"
+                    className="w-full flex justify-center mb-8 pb-4 md:pb-0"
                 >
-                    <div className="flex border-[3px] border-white/10 divide-x-[3px] divide-white/10 bg-white/[0.02]">
-                        {segments.map((seg) => {
+                    <div className="grid grid-cols-2 md:flex w-full md:w-auto border-[3px] border-white/10 bg-white/[0.02]">
+                        {segments.map((seg, idx) => {
                             const isActive = selectedSegment === seg;
+                            
+                            // Define bordas baseadas no índice para formar o grid perfeito no mobile e flex no desktop
+                            let borderClasses = "";
+                            if (idx === 0) borderClasses = "border-b-[3px] border-r-[3px] md:border-b-0 border-white/10";
+                            else if (idx === 1) borderClasses = "border-b-[3px] md:border-r-[3px] md:border-b-0 border-white/10";
+                            else if (idx === 2) borderClasses = "border-r-[3px] md:border-r-[3px] border-white/10";
+                            else borderClasses = "";
+
                             return (
                                 <button
                                     key={seg}
                                     onClick={() => setSelectedSegment(seg)}
-                                    className={`px-6 py-3.5 sm:px-8 sm:py-4 font-medium text-sm md:text-base transition-all duration-500 shrink-0 snap-start overflow-hidden cursor-pointer ${
-                                        isActive 
+                                    className={`
+                                        px-2 py-4 sm:px-8 font-medium text-xs sm:text-sm md:text-base transition-all duration-500 w-full md:w-auto text-center cursor-pointer
+                                        ${borderClasses}
+                                        ${isActive 
                                             ? 'bg-primary-600 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)]' 
                                             : 'text-gray-400 hover:bg-white/5 hover:text-white backdrop-blur-md'
-                                    }`}
+                                        }
+                                    `}
                                 >
                                     <span className="relative z-10">{seg}</span>
                                 </button>
@@ -250,29 +261,30 @@ const Partners = () => {
                                         {/* Cabeçalho da Linha */}
                                         <button
                                             onClick={() => handlePartnerClick(partner.id)}
-                                            className="w-full flex flex-col md:flex-row items-start md:items-center justify-between py-6 md:py-8 cursor-pointer group text-left outline-none bg-transparent border-none gap-4 md:gap-0"
+                                            className="w-full flex items-center justify-between py-5 md:py-8 cursor-pointer group text-left outline-none bg-transparent border-none gap-3 md:gap-0"
                                         >
-                                            <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto">
-                                                <div className="w-24 h-12 md:w-32 md:h-14 border border-white/20 flex items-center justify-center font-black text-white/50 shrink-0 transition-all bg-white/5 group-hover/row:border-primary-500/50 group-hover/row:bg-primary-900/20 group-hover/row:text-primary-400 text-sm md:text-base">
+                                            <div className="flex items-center gap-3 sm:gap-4 md:gap-6 flex-1 min-w-0">
+                                                <div className="w-16 h-10 sm:w-20 sm:h-12 md:w-32 md:h-14 border border-white/20 flex items-center justify-center font-black text-white/50 shrink-0 transition-all bg-white/5 group-hover/row:border-primary-500/50 group-hover/row:bg-primary-900/20 group-hover/row:text-primary-400 text-xs sm:text-sm md:text-base">
                                                     {partner.logo}
                                                 </div>
-                                                <div className="flex flex-col gap-1 md:gap-2">
-                                                    <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-white group-hover/row:text-primary-400 transition-colors duration-300">
+                                                <div className="flex flex-col gap-1.5 md:gap-2 flex-1 min-w-0">
+                                                    <h3 className="text-lg sm:text-xl md:text-3xl font-medium tracking-tight text-white group-hover/row:text-primary-400 transition-colors duration-300">
                                                         {partner.name}
                                                     </h3>
                                                     {/* Badge de categorias e indicação visual */}
-                                                    <div className="flex flex-wrap items-center gap-2 mt-1 md:mt-0">
+                                                    <div className="flex flex-wrap items-center gap-1.5 md:gap-2">
                                                         {/* Categorias do Parceiro */}
                                                         {partner.categories?.map((cat, idx) => (
-                                                            <div key={idx} className={`flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 border ${getCategoryColor()}`}>
+                                                            <div key={idx} className={`flex items-center gap-1 text-[9px] md:text-[10px] uppercase tracking-wider font-bold px-1.5 py-0.5 md:px-2 md:py-0.5 border ${getCategoryColor()} whitespace-nowrap`}>
                                                                 {cat}
                                                             </div>
                                                         ))}
 
                                                         {partner.isHighlighted && (
-                                                            <div className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-primary-400 font-bold bg-primary-500/10 px-2 py-0.5 border border-primary-500/20">
-                                                                <Crown className="w-3 h-3" />
-                                                                Mais Recomendado
+                                                            <div className="flex items-center gap-1 text-[9px] md:text-[10px] uppercase tracking-wider text-primary-400 font-bold bg-primary-500/10 px-1.5 py-0.5 md:px-2 md:py-0.5 border border-primary-500/20 whitespace-nowrap">
+                                                                <Crown className="w-2.5 h-2.5 md:w-3 md:h-3" />
+                                                                <span className="hidden sm:inline">Mais Recomendado</span>
+                                                                <span className="inline sm:hidden">Recomendado</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -280,13 +292,13 @@ const Partners = () => {
                                             </div>
 
                                             {/* Botão de Expandir/Fechar */}
-                                            <div className={`w-10 h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 self-end md:self-center md:ml-6 transition-all duration-500 group-hover/row:border-primary-500/50 group-hover/row:bg-primary-900/20
+                                            <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 ml-2 md:ml-6 transition-all duration-500 group-hover/row:border-primary-500/50 group-hover/row:bg-primary-900/20
                                                 ${isExpanded 
                                                     ? 'bg-primary-900/20 border-primary-500/50 text-primary-400 rotate-45' 
                                                     : 'text-white/70 group-hover/row:text-primary-400'
                                                 }
                                             `}>
-                                                <span className="text-2xl font-light leading-none">+</span>
+                                                <span className="text-xl md:text-2xl font-light leading-none">+</span>
                                             </div>
                                         </button>
 
@@ -380,7 +392,7 @@ const Partners = () => {
                                                             )}
 
                                                             {/* Ações */}
-                                                            <div className="flex flex-row gap-3 pt-2">
+                                                            <div className="flex flex-col sm:flex-row gap-3 pt-2">
                                                                 {partner.website && (
                                                                     <a 
                                                                         href={partner.website}

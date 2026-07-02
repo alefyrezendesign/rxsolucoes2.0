@@ -31,8 +31,9 @@ const HomeOffers = () => {
                 <img 
                     src="/glass-back.jpeg" 
                     alt="Background Image" 
-                    className="w-full h-full object-cover opacity-60"
+                    className="w-full h-[120%] md:h-full object-cover opacity-30 md:opacity-60 -translate-y-12 md:translate-y-0"
                 />
+                <div className="absolute inset-0 bg-black/30 md:bg-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
             </div>
 

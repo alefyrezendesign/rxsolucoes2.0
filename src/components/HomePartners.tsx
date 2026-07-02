@@ -9,14 +9,25 @@ const HomePartners = () => {
     const { openContactModal } = useContactLeadModal();
 
     return (
-        <section className="relative w-full text-white py-24 md:py-32 z-10">
+        <section className="relative w-full text-white pt-10 pb-24 md:py-32 z-10">
             
+            {/* Background Fundo Terra */}
+            <div className="absolute -top-16 md:-top-32 left-0 right-0 w-full h-[110%] md:h-[130%] z-0 pointer-events-none">
+                <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-black via-black/80 to-transparent z-10"></div>
+                <div className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-black via-black/90 to-transparent z-10"></div>
+                <img 
+                    src="/background/bg-final-home.jpg"
+                    alt="Fundo Terra"
+                    className="absolute inset-0 w-full h-full object-cover object-top mix-blend-screen opacity-90"
+                />
+            </div>
+
             <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10">
                 
                 <div className="flex flex-col items-center text-center mb-16">
                     <SectionBadge variant="overlay" icon={<Rocket className="w-4 h-4" />}>PRÓXIMOS PASSOS</SectionBadge>
                     <h2 className="text-3xl md:text-5xl font-bold mt-4">
-                        Pronto para o próximo nível?
+                        Pronto para <br className="block md:hidden" /> o próximo nível?
                     </h2>
                 </div>
 

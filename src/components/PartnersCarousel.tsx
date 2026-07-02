@@ -88,7 +88,7 @@ const PartnersCarousel = () => {
   }, [onScroll]);
 
   return (
-    <div className="w-full overflow-hidden pt-6 pb-4 md:pt-10 md:pb-4 flex flex-col gap-6">
+    <div className="w-full overflow-hidden pt-6 pb-4 md:pt-10 md:pb-4 flex flex-col gap-4 md:gap-6">
       {IMAGES.map((imgSrc, rowIndex) => (
         <div
           key={imgSrc}
@@ -105,7 +105,7 @@ const PartnersCarousel = () => {
               alt={`Parceiros RX Soluções linha ${rowIndex + 1}`}
               onLoad={i === 0 ? () => measure(rowIndex) : undefined}
               draggable={false}
-              className="h-20 sm:h-24 md:h-16 lg:h-20 xl:h-24 max-w-none object-contain select-none pointer-events-none flex-shrink-0"
+              className="h-14 sm:h-16 md:h-16 lg:h-20 xl:h-24 max-w-none object-contain select-none pointer-events-none flex-shrink-0"
             />
           ))}
         </div>

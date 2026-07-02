@@ -124,12 +124,12 @@ const CategoryRow = ({ category, isOpen, onToggle }: { category: Category, isOpe
                                 {category.name}
                             </h3>
                         </div>
-                        <p className="text-gray-400 text-sm md:text-base font-light ml-14 md:ml-16 max-w-xl">
+                        <p className="text-gray-400 text-sm md:text-base font-light md:ml-16 max-w-xl">
                             Diagnósticos e insights para identificar gargalos e oportunidades de melhoria no seu negócio.
                         </p>
                     </div>
-                    <button className="flex items-center gap-2 bg-primary-600 hover:bg-primary-500 text-white px-6 py-3 rounded-full font-bold transition-all shrink-0 cursor-pointer ml-14 md:ml-0 md:self-center">
-                        Entender Diagnóstico <ArrowRight className="w-4 h-4" />
+                    <button className="flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-500 text-white px-5 md:px-6 py-3 rounded-full font-bold transition-all shrink-0 cursor-pointer mt-5 md:mt-0 md:self-center text-sm md:text-base w-max whitespace-nowrap">
+                        Entender Diagnóstico <ArrowRight className="w-4 h-4 shrink-0" />
                     </button>
                 </div>
             </div>
@@ -138,48 +138,84 @@ const CategoryRow = ({ category, isOpen, onToggle }: { category: Category, isOpe
 
     return (
         <div className="border-b-[3px] border-white/10 group/row">
-            <button
+            <div
                 onClick={onToggle}
-                className="w-full flex items-center justify-between py-6 md:py-8 cursor-pointer group text-left outline-none bg-transparent border-none"
+                className="w-full flex flex-col py-6 md:py-8 cursor-pointer group text-left outline-none bg-transparent border-none"
             >
-                <div className="flex items-center gap-4 md:gap-6 shrink-0">
-                    <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary-500/50 group-hover:bg-primary-900/20 transition-all duration-300 shrink-0">
-                        {getIcon(category.iconType)}
+                {/* Main Row: Icon, Title, Desktop Search, and Plus Icon */}
+                <div className="w-full flex items-center justify-between">
+                    <div className="flex items-center gap-4 md:gap-6 shrink-0">
+                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary-500/50 group-hover:bg-primary-900/20 transition-all duration-300 shrink-0">
+                            {getIcon(category.iconType)}
+                        </div>
+                        <span className="text-2xl md:text-3xl font-medium tracking-tight text-white group-hover:text-primary-400 transition-colors duration-300">
+                            {category.name}
+                        </span>
                     </div>
-                    <span className="text-2xl md:text-3xl font-medium tracking-tight text-white group-hover:text-primary-400 transition-colors duration-300">
-                        {category.name}
-                    </span>
+                    
+                    <div className="flex items-center gap-2 md:gap-4 ml-auto">
+                        {/* Search on Desktop */}
+                        <div className="hidden md:block">
+                            <AnimatePresence>
+                                {isOpen && (
+                                    <motion.div
+                                        initial={{ maxWidth: 0, opacity: 0 }}
+                                        animate={{ maxWidth: 400, opacity: 1 }}
+                                        exit={{ maxWidth: 0, opacity: 0 }}
+                                        transition={{ duration: 0.4, ease: "easeOut" }}
+                                        className="overflow-hidden"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <div className="relative w-[300px] flex items-center">
+                                            <input 
+                                                type="text" 
+                                                placeholder={`Buscar...`}
+                                                value={searchQuery}
+                                                onChange={(e) => setSearchQuery(e.target.value)}
+                                                className="w-full bg-black border-[3px] border-white/10 text-white px-5 py-3 text-sm rounded-none outline-none focus:border-primary-500/50 transition-colors placeholder:text-gray-600 font-medium"
+                                            />
+                                            <Search className="w-5 h-5 text-gray-500 absolute right-5" />
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                        
+                        <div className={`w-10 h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 transition-all duration-500 group-hover:border-primary-500/50 group-hover:bg-primary-900/20 ${isOpen ? 'rotate-45 bg-primary-900/20 border-primary-500/50 text-primary-400' : 'text-white/70 group-hover:text-primary-400'}`}>
+                            <span className="text-2xl font-light leading-none">+</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div className="flex items-center gap-2 md:gap-4 ml-auto">
+
+                {/* Search on Mobile */}
+                <div className="block md:hidden w-full">
                     <AnimatePresence>
                         {isOpen && (
                             <motion.div
-                                initial={{ maxWidth: 0, opacity: 0 }}
-                                animate={{ maxWidth: 400, opacity: 1 }}
-                                exit={{ maxWidth: 0, opacity: 0 }}
-                                transition={{ duration: 0.4, ease: "easeOut" }}
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
                                 className="overflow-hidden"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                <div className="relative w-[140px] sm:w-[200px] md:w-[300px] flex items-center">
-                                    <input 
-                                        type="text" 
-                                        placeholder={`Buscar...`}
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full bg-black border-[3px] border-white/10 text-white px-3 md:px-5 py-2 md:py-3 text-sm rounded-none outline-none focus:border-primary-500/50 transition-colors placeholder:text-gray-600 font-medium"
-                                    />
-                                    <Search className="w-4 h-4 md:w-5 md:h-5 text-gray-500 absolute right-3 md:right-5" />
+                                <div className="pt-5">
+                                    <div className="relative w-full flex items-center">
+                                        <input 
+                                            type="text" 
+                                            placeholder={`Buscar...`}
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            className="w-full bg-black border-[3px] border-white/10 text-white px-4 py-3 text-sm rounded-none outline-none focus:border-primary-500/50 transition-colors placeholder:text-gray-600 font-medium"
+                                        />
+                                        <Search className="w-4 h-4 text-gray-500 absolute right-4" />
+                                    </div>
                                 </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
-                    <div className={`w-10 h-10 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 transition-all duration-500 group-hover:border-primary-500/50 group-hover:bg-primary-900/20 ${isOpen ? 'rotate-45 bg-primary-900/20 border-primary-500/50 text-primary-400' : 'text-white/70 group-hover:text-primary-400'}`}>
-                        <span className="text-2xl font-light leading-none">+</span>
-                    </div>
                 </div>
-            </button>
+            </div>
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -192,7 +228,7 @@ const CategoryRow = ({ category, isOpen, onToggle }: { category: Category, isOpe
                         {filteredSolutions.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-l-[3px] border-t-[3px] border-white/10 mb-8 mt-4 bg-white/[0.01]">
                                 {filteredSolutions.map((sol: Solution) => (
-                                    <div key={sol.id} className="p-6 md:p-8 border-r-[3px] border-b-[3px] border-white/10 hover:bg-white/[0.03] transition-all group/item flex flex-col h-full cursor-pointer relative overflow-hidden">
+                                    <div key={sol.id} className="p-5 md:p-6 border-r-[3px] border-b-[3px] border-white/10 hover:bg-white/[0.03] transition-all group/item flex flex-col h-full cursor-pointer relative overflow-hidden">
                                         
                                         {/* Top Hover Border */}
                                         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary-600 to-primary-400 transform scale-x-0 group-hover/item:scale-x-100 transition-transform origin-left duration-500 z-10"></div>
@@ -207,15 +243,15 @@ const CategoryRow = ({ category, isOpen, onToggle }: { category: Category, isOpe
                                             </h4>
                                         </div>
                                         
-                                        <p className="text-sm text-slate-400 line-clamp-3 font-light leading-relaxed mb-8 relative z-10">
+                                        <p className="text-sm text-slate-400 line-clamp-3 font-light leading-relaxed mb-6 relative z-10">
                                             {sol.description}
                                         </p>
                                         
                                         <div className="mt-auto relative z-10 flex items-center justify-between">
-                                            <span className="text-white font-bold text-[11px] uppercase tracking-wider transition-all opacity-0 group-hover/item:opacity-100 -translate-x-2 group-hover/item:translate-x-0">
+                                            <span className="text-white font-bold text-[11px] uppercase tracking-wider transition-all opacity-100 translate-x-0 md:opacity-0 md:-translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0">
                                                 Ver Solução
                                             </span>
-                                            <div className="w-8 h-8 border border-white/10 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-all duration-300 bg-white/5 group-hover/item:bg-primary-500/20 group-hover/item:border-primary-500/50 -translate-x-4 group-hover/item:translate-x-0">
+                                            <div className="w-8 h-8 border border-white/10 flex items-center justify-center transition-all duration-300 bg-white/5 opacity-100 translate-x-0 md:opacity-0 md:-translate-x-4 md:group-hover/item:opacity-100 md:group-hover/item:translate-x-0 group-hover/item:bg-primary-500/20 group-hover/item:border-primary-500/50">
                                                 <ArrowRight className="w-3.5 h-3.5 text-white group-hover/item:text-primary-400" />
                                             </div>
                                         </div>
@@ -360,7 +396,7 @@ const Solutions = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] mt-6 mb-8 max-w-4xl"
+                        className="text-4xl sm:text-5xl md:text-5xl lg:text-[4rem] font-bold tracking-tighter leading-[1.15] md:leading-[1.1] mt-6 mb-8 max-w-4xl"
                     >
                         Explore o portfólio de <br className="hidden md:block" />
                         <span className="text-white">soluções por setor</span>
@@ -372,20 +408,31 @@ const Solutions = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex flex-nowrap overflow-x-auto md:overflow-visible justify-start md:justify-center mt-8 pb-4 md:pb-0 scrollbar-hide snap-x"
+                    className="w-full flex justify-center mt-8 pb-4 md:pb-0"
                 >
-                    <div className="flex border-[3px] border-white/10 divide-x-[3px] divide-white/10 bg-white/[0.02]">
-                        {solutionsData.map((seg) => {
+                    <div className="grid grid-cols-2 md:flex w-full md:w-auto border-[3px] border-white/10 bg-white/[0.02]">
+                        {solutionsData.map((seg, idx) => {
                             const isActive = activeSegmentId === seg.id;
+                            
+                            // Define bordas baseadas no índice para formar o grid perfeito no mobile e flex no desktop
+                            let borderClasses = "";
+                            if (idx === 0) borderClasses = "border-b-[3px] border-r-[3px] md:border-b-0 border-white/10";
+                            else if (idx === 1) borderClasses = "border-b-[3px] md:border-r-[3px] md:border-b-0 border-white/10";
+                            else if (idx === 2) borderClasses = "border-r-[3px] md:border-r-[3px] border-white/10";
+                            else borderClasses = "";
+
                             return (
                                 <button
                                     key={seg.id}
                                     onClick={() => handleSegmentChange(seg.id)}
-                                    className={`px-6 py-3.5 sm:px-8 sm:py-4 font-medium text-sm md:text-base transition-all duration-500 shrink-0 snap-start overflow-hidden cursor-pointer ${
-                                        isActive 
+                                    className={`
+                                        px-2 py-4 sm:px-8 font-medium text-xs sm:text-sm md:text-base transition-all duration-500 w-full md:w-auto text-center cursor-pointer
+                                        ${borderClasses}
+                                        ${isActive 
                                             ? 'bg-primary-600 text-white shadow-[0_0_20px_rgba(139,92,246,0.3)]' 
                                             : 'text-gray-400 hover:bg-white/5 hover:text-white backdrop-blur-md'
-                                    }`}
+                                        }
+                                    `}
                                 >
                                     <span className="relative z-10">{seg.label}</span>
                                 </button>
@@ -407,14 +454,14 @@ const Solutions = () => {
                         className="w-full"
                     >
                         {/* Segment Header Presentation */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center pt-8 pb-12 md:pt-10 md:pb-20 mb-8 md:mb-16">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-24 items-center pt-2 pb-12 md:pt-10 md:pb-20 mb-8 md:mb-16">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-100px" }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <h2 className="text-3xl md:text-[40px] font-semibold leading-tight whitespace-pre-line">
+                                <h2 className="text-2xl md:text-[40px] font-semibold leading-tight whitespace-pre-line text-balance max-w-xl md:max-w-none">
                                     {activeData.impactPhrase}
                                 </h2>
                             </motion.div>

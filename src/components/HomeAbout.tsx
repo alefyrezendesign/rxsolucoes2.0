@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform, MotionValue, AnimatePresence, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import { Plus, X } from 'lucide-react';
+import { Plus, X, ArrowDown, ArrowUp } from 'lucide-react';
 
 const Word = ({ children, progress, range }: { children: string, progress: MotionValue<number>, range: [number, number] }) => {
     const opacity = useTransform(progress, range, [0.2, 1]);
@@ -93,7 +93,7 @@ const HomeAbout = () => {
     const words = textToReveal.split(" ");
 
     return (
-        <section className="relative w-full bg-black text-white pt-8 pb-16 md:pt-10 md:pb-20 z-30">
+        <section className="relative w-full bg-black text-white pt-2 pb-16 md:pt-10 md:pb-20 z-30">
             <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
                 
                 {/* 1.3 Quebra de seção institucional */}
@@ -104,7 +104,19 @@ const HomeAbout = () => {
                         viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h2 className="text-3xl md:text-[40px] font-semibold leading-tight">
+                        {/* Tag no Mobile */}
+                        <div className="flex md:hidden flex-row flex-wrap items-center gap-2 mb-3 mt-1">
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-red-500/20 bg-red-500/10 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white shadow-sm">
+                                <ArrowDown className="w-3.5 h-3.5 text-red-400" />
+                                Menos complexidade
+                            </span>
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-green-500/20 bg-green-500/10 text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white shadow-sm">
+                                <ArrowUp className="w-3.5 h-3.5 text-green-400" />
+                                Mais resultados reais
+                            </span>
+                        </div>
+                        {/* Título normal no Desktop */}
+                        <h2 className="hidden md:block text-3xl md:text-[40px] font-semibold leading-tight">
                             Menos complexidade. <br />
                             Mais resultados reais.
                         </h2>
@@ -129,7 +141,7 @@ const HomeAbout = () => {
                 <div className="w-full relative z-10 pb-16 lg:pb-24">
                     <div className="grid grid-cols-1 md:grid-cols-3 border-t-[3px] md:border-y-[3px] border-white/10 md:divide-x-[3px] md:divide-y-0 divide-y-[3px] divide-white/10 border-x-0 md:border-x-[3px]">
                         {newCards.map((card, idx) => (
-                            <div key={idx} className="group relative p-6 md:p-10 lg:p-14 flex flex-col items-start bg-transparent hover:bg-white/[0.02] transition-colors duration-500 cursor-pointer">
+                            <div key={idx} className="group relative py-8 px-0 md:p-10 lg:p-14 flex flex-col items-start bg-transparent hover:bg-white/[0.02] transition-colors duration-500 cursor-pointer">
                                 <div className="flex flex-row md:flex-col items-center md:items-start gap-4 md:gap-0 mb-5 md:mb-0 w-full">
                                     <div className="w-10 h-10 md:w-12 md:h-12 md:mb-10 lg:mb-12 rounded-lg bg-primary-900/20 border border-primary-500/30 flex shrink-0 items-center justify-center group-hover:border-primary-400 group-hover:shadow-[0_0_20px_rgba(167,139,250,0.3)] transition-all duration-500">
                                         {card.icon}

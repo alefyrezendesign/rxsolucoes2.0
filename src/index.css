@@ -7,8 +7,13 @@
   color: #ffffff;
 }
 
+html, body, #root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
-  @apply bg-black text-white antialiased font-sans font-light overflow-x-hidden;
+  @apply bg-black text-white antialiased font-sans font-light;
 }
 
 /* Custom Scrollbar */
