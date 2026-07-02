@@ -85,7 +85,7 @@ const Header = () => {
 
                     <button
                         onClick={() => { navigate('/solucoes'); setIsMenuOpen(false); }}
-                        className="bg-white/10 border border-primary-500/50 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 rounded-full font-semibold text-[10px] sm:text-[11px] md:text-sm hover:bg-primary-500/20 hover:border-primary-400 transition-all shadow-[0_0_15px_rgba(139,92,246,0.15)] hover:shadow-[0_0_25px_rgba(139,92,246,0.3)] cursor-pointer"
+                        className="bg-white/10 border border-primary-500/50 text-white px-2 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 rounded-full font-semibold text-[9px] sm:text-[11px] md:text-sm hover:bg-primary-500/20 hover:border-primary-400 transition-all shadow-[0_0_15px_rgba(139,92,246,0.15)] hover:shadow-[0_0_25px_rgba(139,92,246,0.3)] cursor-pointer"
                     >
                         <span className="hidden sm:inline">Conhecer Soluções</span>
                         <span className="sm:hidden">Soluções</span>
@@ -93,7 +93,7 @@ const Header = () => {
 
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className={`group flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-3 py-1.5 sm:px-5 sm:py-2 md:py-2.5 rounded-full font-bold text-[10px] sm:text-xs md:text-sm tracking-widest uppercase transition-all duration-300 border backdrop-blur-md cursor-pointer
+                        className={`group flex items-center justify-center gap-1 sm:gap-2 md:gap-3 px-2.5 py-1.5 sm:px-5 sm:py-2 md:py-2.5 rounded-full font-bold text-[9px] sm:text-xs md:text-sm tracking-widest uppercase transition-all duration-300 border backdrop-blur-md cursor-pointer
                             ${isMenuOpen 
                                 ? 'bg-white text-zinc-950 border-transparent shadow-[0_0_30px_rgba(255,255,255,0.2)]'
                                 : 'bg-[#18181A] text-white border-white/10 hover:bg-[#202022] hover:border-white/20'

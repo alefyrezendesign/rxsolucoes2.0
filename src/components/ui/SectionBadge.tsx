@@ -72,7 +72,7 @@ const SectionBadge: React.FC<SectionBadgeProps> = ({
 
             {/* Typed text — min-width prevents layout shift during typing */}
             <span
-                className="text-xs font-semibold tracking-wider uppercase flex items-center"
+                className="text-[10px] sm:text-xs font-semibold tracking-wide sm:tracking-wider uppercase flex items-center whitespace-nowrap"
                 style={{ minWidth: `${fullText.length * 0.52}em` }}
                 aria-hidden="true"
             >
