@@ -42,6 +42,7 @@ export const ContactLeadModalProvider: React.FC<{ children: ReactNode }> = ({ ch
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useContactLeadModal = () => {
     const context = useContext(ContactLeadModalContext);
     if (!context) {

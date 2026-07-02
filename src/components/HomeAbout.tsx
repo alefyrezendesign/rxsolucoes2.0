@@ -81,8 +81,8 @@ const HomeAbout = () => {
 
     useEffect(() => {
         if (isAccordionInView && !hasAutoExpanded) {
-            // Apenas abre se o usuário ainda não tiver clicado em nenhum
             if (openIndex === null) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setOpenIndex(0);
             }
             setHasAutoExpanded(true);

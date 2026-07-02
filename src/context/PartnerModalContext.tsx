@@ -7,6 +7,7 @@ interface PartnerModalContextType {
     closeModal: () => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const PartnerModalContext = createContext<PartnerModalContextType | null>(null);
 
 export function PartnerModalProvider({ children }: { children: ReactNode }) {

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Building2, Handshake, Briefcase, Expand, ArrowRight, Users } from 'lucide-react';
 import SectionBadge from './ui/SectionBadge';
 import { useSolutionsModal } from '../hooks/useSolutionsModal';

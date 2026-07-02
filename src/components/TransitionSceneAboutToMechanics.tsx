@@ -15,7 +15,7 @@ const CinematicScrollScene = () => {
     const trackRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        let mm = gsap.matchMedia();
+        const mm = gsap.matchMedia();
 
         // ─── DESKTOP (Scroll = Horizontal Scrub) ───
         mm.add("(min-width: 768px)", () => {

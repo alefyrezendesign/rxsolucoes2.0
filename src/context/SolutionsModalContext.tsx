@@ -7,6 +7,7 @@ interface SolutionsModalContextType {
     closeModal: () => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const SolutionsModalContext = createContext<SolutionsModalContextType | null>(null);
 
 export function SolutionsModalProvider({ children }: { children: ReactNode }) {

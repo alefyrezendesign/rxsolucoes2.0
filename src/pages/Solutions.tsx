@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useTransform, MotionValue, useInView } from 'framer-motion';
 import SectionBadge from '../components/ui/SectionBadge';
 import { ArrowRight, Box, TrendingDown, Layers, BarChart3, Building2, Rocket, Search } from 'lucide-react';
-import { solutionsData } from '../data/solutionsData';
+import { solutionsData, type Category, type Solution } from '../data/solutionsData';
 import { useContactLeadModal } from '../context/ContactLeadModalContext';
 
 const Word = ({ children, progress, range }: { children: string, progress: MotionValue<number>, range: [number, number] }) => {
@@ -95,16 +95,17 @@ const SegmentHeaderDescription = ({ description }: { description: string }) => {
     );
 };
 
-const CategoryRow = ({ category, isOpen, onToggle }: { category: any, isOpen: boolean, onToggle: () => void }) => {
+const CategoryRow = ({ category, isOpen, onToggle }: { category: Category, isOpen: boolean, onToggle: () => void }) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         if (!isOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setSearchQuery("");
         }
     }, [isOpen]);
 
-    const filteredSolutions = category.solutions?.filter((sol: any) => {
+    const filteredSolutions = category.solutions?.filter((sol: Solution) => {
         if (!searchQuery) return true;
         const target = `${sol.name} ${sol.partnerName} ${sol.description}`;
         return isFuzzyMatch(searchQuery, target);
@@ -190,7 +191,7 @@ const CategoryRow = ({ category, isOpen, onToggle }: { category: any, isOpen: bo
                     >
                         {filteredSolutions.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-l-[3px] border-t-[3px] border-white/10 mb-8 mt-4 bg-white/[0.01]">
-                                {filteredSolutions.map((sol: any) => (
+                                {filteredSolutions.map((sol: Solution) => (
                                     <div key={sol.id} className="p-6 md:p-8 border-r-[3px] border-b-[3px] border-white/10 hover:bg-white/[0.03] transition-all group/item flex flex-col h-full cursor-pointer relative overflow-hidden">
                                         
                                         {/* Top Hover Border */}
@@ -233,7 +234,7 @@ const CategoryRow = ({ category, isOpen, onToggle }: { category: any, isOpen: bo
     );
 };
 
-const SolutionsAccordion = ({ categories, expandedCategory, setExpandedCategory }: { categories: any[], expandedCategory: string | null, setExpandedCategory: (id: string | null) => void }) => {
+const SolutionsAccordion = ({ categories, expandedCategory, setExpandedCategory }: { categories: Category[], expandedCategory: string | null, setExpandedCategory: (id: string | null) => void }) => {
     const ref = useRef<HTMLDivElement>(null);
     const hasAutoExpanded = useRef(false);
     const isInView = useInView(ref, { once: true, margin: "-150px" });
@@ -251,7 +252,7 @@ const SolutionsAccordion = ({ categories, expandedCategory, setExpandedCategory 
     return (
         <div ref={ref} className="w-full flex flex-col mb-12">
             <div className="border-t-[3px] border-white/10">
-                {categories.map((category: any) => (
+                {categories.map((category: Category) => (
                     <CategoryRow 
                         key={category.id} 
                         category={category} 
@@ -270,9 +271,12 @@ const Solutions = () => {
     
     // Read segment from URL or fallback to the first one
     const segmentParam = searchParams.get('segmento');
-    const initialSegment = solutionsData.find(s => s.id === segmentParam)?.id || solutionsData[0].id;
     
-    const [activeSegmentId, setActiveSegmentId] = useState(initialSegment);
+    // Derive state entirely from URL param
+    const activeSegmentId = (segmentParam && solutionsData.some(s => s.id === segmentParam)) 
+        ? segmentParam 
+        : solutionsData[0].id;
+        
     const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
     const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
 
@@ -280,18 +284,11 @@ const Solutions = () => {
 
     // Get portal target
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setPortalTarget(document.getElementById('header-breadcrumb-portal'));
     }, []);
 
-    // When URL changes (e.g. going back), update local state
-    useEffect(() => {
-        if (segmentParam && solutionsData.some(s => s.id === segmentParam)) {
-            setActiveSegmentId(segmentParam);
-        }
-    }, [segmentParam]);
-
     const handleSegmentChange = (id: string) => {
-        setActiveSegmentId(id);
         setSearchParams({ segmento: id }, { replace: true });
     };
 
@@ -333,7 +330,7 @@ const Solutions = () => {
                         <>
                             <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5 text-primary-500/60 shrink-0" />
                             <div className="flex items-center justify-center text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-white bg-white/10 px-2 py-1 md:px-2.5 md:py-1.5 border border-white/10 rounded-sm shadow-sm">
-                                {activeData.categories.find((c: any) => c.id === expandedCategory)?.name || expandedCategory}
+                                {activeData.categories.find((c: Category) => c.id === expandedCategory)?.name || expandedCategory}
                             </div>
                         </>
                     )}

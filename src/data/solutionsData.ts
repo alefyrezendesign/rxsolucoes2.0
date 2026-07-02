@@ -45,27 +45,27 @@ const generateMockSolutions = (category: string, categoryId: string, count: numb
 
 // Helper to ensure all segments have the standard 4 categories
 const createStandardCategories = (
-    _eficiencia: Solution[],
-    _reducaoCusto: Solution[],
-    _sistemas: Solution[]
+    eficiencia: Solution[],
+    reducaoCusto: Solution[],
+    sistemas: Solution[]
 ): Category[] => [
     {
         id: "eficiencia",
         name: "Eficiência",
         iconType: "efficiency",
-        solutions: generateMockSolutions("Eficiência", "eficiencia", 8)
+        solutions: eficiencia.length > 0 ? eficiencia : generateMockSolutions("Eficiência", "eficiencia", 8)
     },
     {
         id: "reducao-custo",
         name: "Redução de Custo",
         iconType: "cost",
-        solutions: generateMockSolutions("Redução de Custo", "reducao-custo", 6)
+        solutions: reducaoCusto.length > 0 ? reducaoCusto : generateMockSolutions("Redução de Custo", "reducao-custo", 6)
     },
     {
         id: "sistemas",
         name: "Sistemas",
         iconType: "system",
-        solutions: generateMockSolutions("Sistemas", "sistemas", 4)
+        solutions: sistemas.length > 0 ? sistemas : generateMockSolutions("Sistemas", "sistemas", 4)
     },
     {
         id: "rx-analises",
