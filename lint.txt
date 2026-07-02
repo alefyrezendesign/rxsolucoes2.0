@@ -1,0 +1,87 @@
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Diagnostic.tsx
+   35:8   warning  React Hook useEffect has a missing dependency: 'content'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              react-hooks/exhaustive-deps
+  130:87  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Diagnostic.tsx:130:87
+  128 |                                                 initial={{ height: "0%" }}
+  129 |                                                 animate={isInView ? {
+> 130 |                                                     height: [`${h}%`, `${Math.max(20, Math.random() * 100)}%`, `${h}%`]
+      |                                                                                       ^^^^^^^^^^^^^ Cannot call impure function
+  131 |                                                 } : { height: "0%" }}
+  132 |                                                 transition={{
+  133 |                                                     duration: 2 + Math.random(),  react-hooks/purity
+  133:67  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Diagnostic.tsx:133:67
+  131 |                                                 } : { height: "0%" }}
+  132 |                                                 transition={{
+> 133 |                                                     duration: 2 + Math.random(),
+      |                                                                   ^^^^^^^^^^^^^ Cannot call impure function
+  134 |                                                     repeat: Infinity,
+  135 |                                                     ease: "easeInOut"
+  136 |                                                 }}                                                                                                react-hooks/purity
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Header.tsx
+  38:71  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Hero.tsx
+  144:8  warning  React Hook useEffect has missing dependencies: 'mouseX' and 'mouseY'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\HowItWorks.tsx
+  94:47  error  The `{}` ("empty object") type allows any non-nullish value, including literals like `0` and `""`.
+- If that's what you want, disable this lint rule with an inline comment or configure the 'allowObjectTypes' rule option.
+- If you want a type meaning "any object", you probably want `object` instead.
+- If you want a type meaning "any value", you probably want `unknown` instead  @typescript-eslint/no-empty-object-type
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\ParallaxSection.tsx
+  1:0  error  Parsing error: File appears to be binary
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\PartnerModal.tsx
+  151:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\PartnerModal.tsx:151:9
+  149 |     useEffect(() => {
+  150 |         if (!isOpen) return;
+> 151 |         setForm({ ...INITIAL, partnerModel: selectedPlan });
+      |         ^^^^^^^ Avoid calling setState() directly within an effect
+  152 |         setErrors({});
+  153 |         setState('form');
+  154 |         setServerErr('');  react-hooks/set-state-in-effect
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\SolutionsModal.tsx
+  151:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\SolutionsModal.tsx:151:9
+  149 |     useEffect(() => {
+  150 |         if (!isOpen) return;
+> 151 |         setForm({ ...INITIAL, interest: initialInterest });
+      |         ^^^^^^^ Avoid calling setState() directly within an effect
+  152 |         setErrors({});
+  153 |         setState('form');
+  154 |         setServerErr('');  react-hooks/set-state-in-effect
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\context\PartnerModalContext.tsx
+  33:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\context\SolutionsModalContext.tsx
+  33:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+✖ 11 problems (9 errors, 2 warnings)
+

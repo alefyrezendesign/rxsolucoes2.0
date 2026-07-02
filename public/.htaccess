@@ -1,0 +1,46 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Define a base para as regras de reescrita (Raiz do domínio)
+  RewriteBase /
+
+  # (Opcional) Forçar HTTPS - Descomente as linhas abaixo se precisar forçar HTTPS via htaccess
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # (Opcional) Forçar WWW (ou remover WWW) - Descomente para forçar WWW
+  # RewriteCond %{HTTP_HOST} ^rxanalises\.com\.br [NC]
+  # RewriteRule ^(.*)$ https://www.rxanalises.com.br/$1 [L,R=301,NC]
+
+  # Se a requisição for para o index.html, interrompe (não reescreve)
+  RewriteRule ^index\.html$ - [L]
+
+  # Se o arquivo ou diretório físico existir (ex: /assets/index-xxxx.js), serve o arquivo de fato
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+
+  # Caso contrário (rotas criadas no frontend), redireciona sempre para o index.html (SPA Fallback)
+  RewriteRule . /index.html [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Cache FORTE de arquivos estáticos gerados com hash pelo Vite (JS, CSS, Imagens, Fontes)
+  # O Vite gera nomes únicos (ex: main-a3fb4.js) a cada build, então podemos salvar na máquina do usuário para sempre.
+  <FilesMatch "\.(js|css|woff2?|eot|ttf|png|jpe?g|gif|svg|ico|webp)$">
+    ExpiresDefault "access plus 1 year"
+    Header append Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Cache BAIXO (ou nenhum) para o index.html 
+  # Garante que quando você subir o deploy novo, o Google Chrome vai ver o novo index.html 
+  # e enxergar a importação do "main-NOVO_HASH.js" no mesmo segundo! Sem tela em branco de cache velho.
+  <FilesMatch "^(index\.html)$">
+    ExpiresDefault "access plus 0 seconds"
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>

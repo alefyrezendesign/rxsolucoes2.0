@@ -1,0 +1,35 @@
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Diagnostic.tsx
+  68:35  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Diagnostic.tsx:68:35
+  66 |         return [65, 40, 75, 55, 80, 45, 90].map(h => ({
+  67 |             initialH: h,
+> 68 |             targetH: Math.max(20, Math.random() * 100),
+     |                                   ^^^^^^^^^^^^^ Cannot call impure function
+  69 |             duration: 2 + Math.random(),
+  70 |         }));
+  71 |     }, []);  react-hooks/purity
+  69:27  error  Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\components\Diagnostic.tsx:69:27
+  67 |             initialH: h,
+  68 |             targetH: Math.max(20, Math.random() * 100),
+> 69 |             duration: 2 + Math.random(),
+     |                           ^^^^^^^^^^^^^ Cannot call impure function
+  70 |         }));
+  71 |     }, []);
+  72 |                                                                  react-hooks/purity
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\context\PartnerModalContext.tsx
+  33:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+E:\RX Análises\Site - RX\site-rx-solucoes\src\context\SolutionsModalContext.tsx
+  33:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+✖ 4 problems (4 errors, 0 warnings)
+
