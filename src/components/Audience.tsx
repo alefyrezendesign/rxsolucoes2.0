@@ -73,7 +73,7 @@ const Audience = () => {
     ];
 
     return (
-        <section id="para-quem" className="pt-8 md:pt-12 pb-6 md:pb-8 flex flex-col relative" ref={ref}>
+        <section id="para-quem" className="pt-8 md:pt-12 pb-6 md:pb-8 flex flex-col relative z-20" ref={ref}>
             
             {/* The absolute video background was moved to the bottom */}
 
