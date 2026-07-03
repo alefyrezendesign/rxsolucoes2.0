@@ -52,13 +52,13 @@ const Hero = () => {
                 <div className="absolute bottom-0 left-0 w-full h-[50vh] md:h-[60vh] z-[2] bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"></div>
 
                 <div className="w-full max-w-7xl mx-auto px-4 md:px-8 relative flex-1 flex flex-col justify-center items-center z-10 pt-24 pb-12">
-                    <div className="w-full mx-auto text-center">
+                    <div className="relative w-full mx-auto text-center">
                         
                         <motion.div
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
-                            className="inline-flex"
+                            className="relative inline-flex"
                         >
                             <SectionBadge 
                                 autoStart={true} 
